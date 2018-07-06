@@ -1,12 +1,12 @@
 library(tidyverse)
 jacobi<-function(x,A,b){
-  x<-1:length(A[,1]) %>% 
-    map(~{(b[.]-sum(x * A[.,])+x[.]*A[.,.])/A[.,.]}) %>% 
+  1:length(b[1]) %>% 
+    map(~{(b[.]-sum(x[-.] * A[.,-.]))/A[.,.]}) %>% 
     unlist()
 }
 gauss_seidel<-function(x,A,b){
   x<-1:length(A[,1]) %>% 
-    map(~{x[.]<<-(b[.]-sum(x * A[.,])+x[.]*A[.,.])/A[.,.]}) %>% 
+    map(~{x[.]<<-(b[.]-sum(x[-.] * A[.,-.]))/A[.,.]}) %>% 
     unlist()
 }
 sor<-function(x,A,b,omega){
