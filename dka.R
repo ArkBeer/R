@@ -1,5 +1,5 @@
 f<-function(x){
-  return(x^2+2*x+1)
+  return(x^3+2*x^2+4*x^1+1)
 }
 d<-function(f,x){
   h<-10^(-6)
@@ -18,6 +18,7 @@ dka<-function(f,a1,n,r0){
   for(i in 1:n){
     zk.0<-c(zk.0,a1/n+r0*exp(1i*(2*(i-1)*pi/n+pi/2/n)))
   }
+  prod(zk.0[i]-zk.0[-i])
   
   return(zk.0)
 }
