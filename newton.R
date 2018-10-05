@@ -1,5 +1,5 @@
 f<-function(x){
-  return(-1+x*2-6*x^2+7*x^4+x^3)
+  return(x-exp(1)^(-x))
 }
 d<-function(f,x){
   h<-10^(-6)
@@ -12,4 +12,3 @@ newton<-function(f,x0){
     return(newton(f,x0-f(x0)/d(f,x0)))
   }else return(x0)
 }
-
