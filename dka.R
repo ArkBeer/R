@@ -18,7 +18,17 @@ dka<-function(f,a1,n,r0){
   for(i in 1:n){
     zk.0<-c(zk.0,a1/n+r0*exp(1i*(2*(i-1)*pi/n+pi/2/n)))
   }
-  prod(zk.0[i]-zk.0[-i])
-  
-  return(zk.0)
+  while(TRUE){
+    zk.1<-c()
+    for(i in 1:n){
+      zk.1<-c(zk.1,zk.0[i]-f(zk.0[i])/prod(zk.0[i]-zk.0[-i]))
+    }
+    print(zk.1)
+    if(all(abs(zk.1-zk.0)<10^-6*abs(zk.1))){
+      break
+    }else{
+      zk.0<-zk.1
+    }
+  }
+  return(zk.1)
 }
