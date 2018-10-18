@@ -18,17 +18,18 @@ dy<-function(f,x,y){
 }
 
 jacobi<-function(f,g,x,y){
-  return(dx(f,x,y)*dy(g,x,y)-dy(f,x,y)*dx(g,x,y))
+  return(matrix(c(dx(f,x,y),dx(g,x,y),dy(f,x,y),dy(g,x,y)),2,2))
 }
 
+
 newton<-function(f,g,x0,y0){
-  c0<-c(x0,y0)
+  c0<-matrix(c(x0,y0),2,1)
   while(T){
     print(c0)
-    c1<-c0-c(f(c0[1],c0[2]),g(c0[1],c0[2]))/abs(jacobi(f,g,c0[1],c0[2]))*0.1
+    c1<-c0-solve(jacobi(f,g,x,y),matrix(c(f(c0[1],c0[2]),g(c0[1],c0[2])),2,1))
     if(abs(f(c1[1],c1[2]))<10^-6 & abs(g(c1[1],c1[2]))<10^-6){
       break
     }
-    newton(f,g,c1[1],c1[2])
+    c0<-c1
   }
 }
