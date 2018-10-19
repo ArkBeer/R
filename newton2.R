@@ -1,3 +1,4 @@
+library(tidyverse)
 f<-function(x,y){
   return(2*x-y^2+log(x))
 }
@@ -24,12 +25,19 @@ jacobi<-function(f,g,x,y){
 
 newton<-function(f,g,x0,y0){
   c0<-matrix(c(x0,y0),2,1)
-  while(T){
+  for(i in 1:1000){
     print(c0)
-    c1<-c0-solve(jacobi(f,g,x,y),matrix(c(f(c0[1],c0[2]),g(c0[1],c0[2])),2,1))
+    c1<-c0-solve(jacobi(f,g,c0[1],c0[2]),matrix(c(f(c0[1],c0[2]),g(c0[1],c0[2])),2,1))
     if(abs(f(c1[1],c1[2]))<10^-6 & abs(g(c1[1],c1[2]))<10^-6){
-      break
+      return(TRUE)
     }
     c0<-c1
+  }
+  return(FALSE)
+}
+result<-c()
+for(i in 1:7){
+  for(j in -2:7){
+    tryCatch({result<-c(result,newton(f,g,i,j))},error=function(e){result<-c(result,FALSE)},warning=function(e){result<-c(result,FALSE)})
   }
 }
